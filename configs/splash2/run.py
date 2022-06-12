@@ -55,11 +55,11 @@ parser.add_option("-f", "--frequency",
 parser.add_option("--l1size",
                   default = "32kB")
 parser.add_option("--l1latency",
-                  default = "1ns")
+                  default = "1")
 parser.add_option("--l2size",
                   default = "256kB")
 parser.add_option("--l2latency",
-                  default = "10ns")
+                  default = "10")
 parser.add_option("--rootdir",
                   help="Root directory of Splash2",
                   default="/dist/splash2/codes")
