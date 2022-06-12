@@ -159,7 +159,7 @@ class Water_spatial(Process):
 # ====================
 
 class L1(Cache):
-    latency = options.l1latency
+    data_latency = options.l1latency
     mshrs = 12
     tgts_per_mshr = 8
 
@@ -168,7 +168,7 @@ class L1(Cache):
 # ----------------------
 
 class L2(Cache):
-    latency = options.l2latency
+    data_latency = options.l2latency
     mshrs = 92
     tgts_per_mshr = 16
     write_buffers = 8
