@@ -1,4 +1,3 @@
-# Copyright (c) 2005-2007 The Regents of The University of Michigan
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -29,25 +28,25 @@
 # Splash2 Run Script
 #
 
-from __future__ import print_function
-
 import os
 import optparse
 import sys
-
+from m5.util import addToPath, fatal
+addToPath('../common')
 import m5
 from m5.objects import *
+from Caches import *
+m5.util.addToPath('../common')
 
 # --------------------
 # Define Command Line Options
 # ====================
-
 parser = optparse.OptionParser()
 
 parser.add_option("-d", "--detailed", action="store_true")
 parser.add_option("-t", "--timing", action="store_true")
 parser.add_option("-m", "--maxtick", type="int")
-parser.add_option("-n", "--numcpus",
+parser.add_option("-n", "--numcpus", default = 1,
                   help="Number of cpus in total", type="int")
 parser.add_option("-f", "--frequency",
                   default = "1GHz",
@@ -154,25 +153,6 @@ class Water_spatial(Process):
         input = options.rootdir + '/apps/water-spatial/input.p' + str(options.numcpus)
     cwd = options.rootdir + '/apps/water-spatial'
 
-# --------------------
-# Base L1 Cache Definition
-# ====================
-
-class L1(Cache):
-    data_latency = options.l1latency
-    mshrs = 12
-    tgts_per_mshr = 8
-
-# ----------------------
-# Base L2 Cache Definition
-# ----------------------
-
-class L2(Cache):
-    data_latency = options.l2latency
-    mshrs = 92
-    tgts_per_mshr = 16
-    write_buffers = 8
-
 # ----------------------
 # Define the cpus
 # ----------------------
@@ -180,28 +160,30 @@ class L2(Cache):
 busFrequency = Frequency(options.frequency)
 
 if options.timing:
-    cpus = [TimingSimpleCPU(cpu_id = i,
-                            clock=options.frequency)
+    cpus = [TimingSimpleCPU(cpu_id = i)
             for i in xrange(options.numcpus)]
 elif options.detailed:
-    cpus = [DerivO3CPU(cpu_id = i,
-                       clock=options.frequency)
+    cpus = [DerivO3CPU(cpu_id = i)
             for i in xrange(options.numcpus)]
 else:
-    cpus = [AtomicSimpleCPU(cpu_id = i,
-                            clock=options.frequency)
+    cpus = [AtomicSimpleCPU(cpu_id = i)
             for i in xrange(options.numcpus)]
 
 # ----------------------
 # Create a system, and add system wide objects
 # ----------------------
 system = System(cpu = cpus, physmem = SimpleMemory(),
-                membus = SystemXBar(clock = busFrequency))
-system.clock = '1GHz'
+                membus = SystemXBar())
+#system.clock = '1GHz'
 
-system.toL2bus = L2XBar(clock = busFrequency)
-system.l2 = L2(size = options.l2size, assoc = 8)
+for i in xrange(options.numcpus):
+    system.cpu[i].createInterruptController()
 
+system.voltage_domain = VoltageDomain(voltage = '1.0V')
+system.clk_domain = SrcClockDomain(clock =  options.frequency, \
+        voltage_domain = system.voltage_domain)
+system.toL2bus = L2XBar()
+system.l2 = L2Cache(size = options.l2size, assoc = 8)
 # ----------------------
 # Connect the L2 cache and memory together
 # ----------------------
@@ -215,8 +197,8 @@ system.system_port = system.membus.slave
 # Connect the L2 cache and clusters together
 # ----------------------
 for cpu in cpus:
-    cpu.addPrivateSplitL1Caches(L1(size = options.l1size, assoc = 1),
-                                L1(size = options.l1size, assoc = 4))
+    cpu.addPrivateSplitL1Caches(L1Cache(size = options.l1size, assoc = 1),
+                                L1Cache(size = options.l1size, assoc = 4))
     # connect cpu level-1 caches to shared level-2 cache
     cpu.connectAllPorts(system.toL2bus, system.membus)
 
@@ -255,10 +237,14 @@ elif options.benchmark == 'WaterNSquared':
 elif options.benchmark == 'WaterSpatial':
     root.workload = Water_spatial()
 else:
-    print("The --benchmark environment variable was set to something "
-          "improper. Use Cholesky, FFT, LUContig, LUNoncontig, Radix, "
-          "Barnes, FMM, OceanContig, OceanNoncontig, Raytrace, WaterNSquared, "
-          "or WaterSpatial", file=sys.stderr)
+#    print >> sys.stderr, """The --benchmark environment variable was set
+#        to something improper. Use Cholesky, FFT, LUContig, LUNoncontig,
+#        Radix, Barnes, FMM, OceanContig,OceanNoncontig, Raytrace,
+#        WaterNSquared, or WaterSpatial"""
+    print("The --benchmark environment variable was set to"
+            "something improper. Use Cholesky, FFT, LUContig,"
+            "LUNoncontig, Radix, Barnes, FMM, OceanContig, OceanNoncontig,"
+            "Raytrace, WaterNSquared, or WaterSpatial",file=sys.stderr)
     sys.exit(1)
 
 # --------------------
@@ -285,4 +271,3 @@ else:
     exit_event = m5.simulate(m5.MaxTick)
 
 print('Exiting @ tick', m5.curTick(), 'because', exit_event.getCause())
-
