@@ -174,14 +174,15 @@ else:
 # ----------------------
 system = System(cpu = cpus, physmem = SimpleMemory(),
                 membus = SystemXBar())
-#system.clock = '1GHz'
 
 for i in xrange(options.numcpus):
     system.cpu[i].createInterruptController()
+#    system.cpu.createThreads()
 
 system.voltage_domain = VoltageDomain(voltage = '1.0V')
 system.clk_domain = SrcClockDomain(clock =  options.frequency, \
         voltage_domain = system.voltage_domain)
+system.clk_domain.clock = '1GHz'
 system.toL2bus = L2XBar()
 system.l2 = L2Cache(size = options.l2size, assoc = 8)
 # ----------------------
