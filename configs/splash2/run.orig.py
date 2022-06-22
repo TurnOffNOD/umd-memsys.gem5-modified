@@ -199,11 +199,11 @@ else:
 #system = System(cpu = cpus, physmem = SimpleMemory(),
 #                membus = SystemXBar(clock = busFrequency))
 system = System(cpu = cpus, physmem = SimpleMemory(),
-                membus = CoherentBus())
+                membus = SystemXBar())
 #system.clock = '1GHz'
 
 #system.toL2bus = L2XBar(clock = busFrequency)
-system.toL2bus = CoherentBus()
+system.toL2bus = SystemXBar()
 system.l2 = L2(size = options.l2size, assoc = 8)
 
 # ----------------------
