@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "hello_objedt.hh"
+#include "hello_object.hh"
 
 HelloObject::HelloObject(HelloObjectParams *params):
         SimObject(params)
