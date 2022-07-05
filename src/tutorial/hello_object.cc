@@ -1,11 +1,11 @@
+#include "tutorial/hello_object.hh"
+
 #include <iostream>
 
-#include "hello_object.hh"
-
-HelloObject::HelloObject(HelloObjectParams *params):
+HelloObject::HelloObject(HelloObjectParams *params) :
         SimObject(params)
 {
-        std::out << "Hello World from SimObject!" << std::endl;
+        std::cout << "Hello World from SimObject!" << std::endl;
 }
 
 HelloObject *HelloObjectParams::create()
