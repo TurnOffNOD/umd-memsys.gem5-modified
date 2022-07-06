@@ -4,11 +4,12 @@
 #include "tutorial/hello_object.hh"
 
 HelloObject::HelloObject(HelloObjectParams *params) :
-        SimObject(params), event([this]{processEvent();}, name()),
-        latency(100), timesLeft(10)
+        SimObject(params),
+        event(*this), myName(params->name),
+        latency(params->time_to_wait), timesLeft(params->number_of_fires)
 {
 //        std::cout << "Hello World from SimObject!" << std::endl;
-        DPRINTF(Hello, "Created the new hello object\n");
+        DPRINTF(Hello, "Created the new object with the name %s\n", myName);
 }
 
 void HelloObject::processEvent()
