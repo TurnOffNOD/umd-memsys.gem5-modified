@@ -159,6 +159,7 @@ class Water_spatial(Process):
 # ====================
 
 class L1(Cache):
+    tag_latency = options.l1latency
     data_latency = options.l1latency
     mshrs = 12
     tgts_per_mshr = 8
@@ -168,6 +169,7 @@ class L1(Cache):
 # ----------------------
 
 class L2(Cache):
+    tag_latency = options.l1latency
     data_latency = options.l2latency
     mshrs = 92
     tgts_per_mshr = 16
@@ -185,12 +187,14 @@ if options.timing:
     cpus = [TimingSimpleCPU(cpu_id = i)
             for i in xrange(options.numcpus)]
 elif options.detailed:
-    cpus = [DerivO3CPU(cpu_id = i,
-                       clock=options.frequency)
+    #cpus = [DerivO3CPU(cpu_id = i,
+    #                   clock=options.frequency)
+    cpus = [DerivO3CPU(cpu_id = i)
             for i in xrange(options.numcpus)]
 else:
-    cpus = [AtomicSimpleCPU(cpu_id = i,
-                            clock=options.frequency)
+    #cpus = [AtomicSimpleCPU(cpu_id = i,
+    #                        clock=options.frequency)
+    cpus = [AtomicSimpleCPU(cpu_id = i)
             for i in xrange(options.numcpus)]
 
 # ----------------------
@@ -203,7 +207,7 @@ system = System(cpu = cpus, physmem = SimpleMemory(),
 #system.clock = '1GHz'
 
 #system.toL2bus = L2XBar(clock = busFrequency)
-system.toL2bus = SystemXBar()
+system.toL2bus = L2XBar()
 system.l2 = L2(size = options.l2size, assoc = 8)
 
 # ----------------------
@@ -265,12 +269,16 @@ else:
           "or WaterSpatial", file=sys.stderr)
     sys.exit(1)
 
+#root.createThreads()
+
 # --------------------
 # Assign the workload to the cpus
 # ====================
 
 for cpu in cpus:
     cpu.workload = root.workload
+
+system.cpu.createThreads()
 
 # ----------------------
 # Run the simulation
