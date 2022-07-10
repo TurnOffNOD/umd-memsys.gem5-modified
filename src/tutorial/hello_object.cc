@@ -1,10 +1,9 @@
 #include <iostream>
 
+#include "base/logging.hh"
 #include "debug/Hello.hh"
 #include "tutorial/goodbye_object.hh"
 #include "tutorial/hello_object.hh"
-
-//#include "base/misc.hh"
 
 HelloObject::HelloObject(HelloObjectParams *params) :
         SimObject(params),
@@ -14,7 +13,7 @@ HelloObject::HelloObject(HelloObjectParams *params) :
 {
 //        std::cout << "Hello World from SimObject!" << std::endl;
         DPRINTF(Hello, "Created the new object with the name %s\n", myName);
-//	panic_if(!goodbye, "HelloObject must have a non-null GoodbyeObject");
+        panic_if(!goodbye, "HelloObject must have a non-null GoodbyeObject");
 }
 
 void HelloObject::processEvent()
