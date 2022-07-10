@@ -40,7 +40,7 @@ void
 GoodbyeObject::fillBuffer()
 {
         //Check if it is a valid message
-        //assert.(message.length() >0);
+        assert(message.length() >0);
 
         //Copy the message byte by byte
         int bytes_copied = 0;
