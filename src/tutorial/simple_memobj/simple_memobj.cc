@@ -28,7 +28,7 @@
  * Authors: Jason Lowe-Power
  */
 
-#include "learning_gem5/simple_memobj/simple_memobj.hh"
+#include "tutorial/simple_memobj/simple_memobj.hh"
 
 #include "debug/SimpleMemobj.hh"
 
