@@ -20,15 +20,12 @@ system.membus = SystemXBar()
 system.memobj.mem_side = system.membus.slave
 
 system.cpu.createInterruptController()
-system.cpu.interrupts[0].pio = system.membus.master
-system.cpu.interrupts[0].int_master = system.membus.slave
-system.cpu.interrupts[0].int_slave = system.membus.master
+system.system_port = system.membus.slave
 
 system.mem_ctrl = DDR3_1600_8x8()
 system.mem_ctrl.range = system.mem_ranges[0]
 system.mem_ctrl.port = system.membus.master
 
-system.system_port = system.membus.slave
 
 process = Process()
 process.cmd = ['tests/test-progs/hello/bin/x86/linux/hello']
