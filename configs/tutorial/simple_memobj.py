@@ -28,7 +28,7 @@ system.mem_ctrl.port = system.membus.master
 
 
 process = Process()
-process.cmd = ['tests/test-progs/hello/bin/x86/linux/hello']
+process.cmd = ['tests/test-progs/hello/bin/riscv/linux/hello']
 system.cpu.workload = process
 system.cpu.createThreads()
 
