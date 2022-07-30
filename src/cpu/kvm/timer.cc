@@ -60,11 +60,19 @@
 #define sigev_notify_thread_id     _sigev_un._tid
 #endif
 
+//Old glibc version don't provide a gettid()  wrapper, but new glibc does.
+//comment out for success building on Ubuntu 20.04
+//References:
+//https://bugzilla.mozilla.org/show_bug.cgi?id=1533969
+//https://hg.mozilla.org/integration/autoland/rev/7b85bf9c5210
+//https://blog.csdn.net/hanyeguxingwo/article/details/121293315
+/*
 static pid_t
 gettid()
 {
     return syscall(__NR_gettid);
 }
+*/
 
 /**
  * Minimum number of cycles that a host can spend in a KVM call (used
