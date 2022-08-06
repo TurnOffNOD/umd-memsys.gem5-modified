@@ -17,10 +17,12 @@ DRAMSIM3_ini_dir=long-tREFI-configs/ddr4
 #DRAMSIM3_ini_file=DDR4_8Gb_x8_1866.ini
 for DRAMSIM3_ini_file in $(ls ${DRAMSIM3_ini_dir}/*.ini)
 do
-	OUTdir=$OUT_dir_root/$BENCH_NAME/$(basename ${DRAMSIM3_ini_file} .ini)-$(date +%FT%H%M%S)
+	DRAMSIM3_ini_file=$(basename ${DRAMSIM3_ini_file} .ini)
+	OUTdir=$OUT_dir_root/$BENCH_NAME/${DRAMSIM3_ini_file}-$(date +%FT%H%M%S)
 	
 	if [ ! -d "$OUTdir" ]; then
-		echo "per-ini output directory dones't exitst, creating it."
+		echo "per-ini $OUTdir"
+		echo "output directory dones't exitst, creating it."
 		mkdir -p $OUTdir
 	fi
 
@@ -32,7 +34,7 @@ do
 	-o "3 lbm-bench-output 0 0" \
 	--cpu-type=TimingSimpleCPU \
 	--mem-type=DRAMsim3 \
-	--dramsim3-ini=$DRAMSIM3_ini_dir/${DRAMSIM3_ini_file}
+	--dramsim3-ini=$DRAMSIM3_ini_dir/${DRAMSIM3_ini_file}.ini
 	#--debug-flags=MemoryAccess \
 	#-i "$SPEC/$BENCH/$BEN_suffix/inp.in" \
 	#--debug-file=$BENCH.debugfile \
