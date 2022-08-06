@@ -36,7 +36,7 @@ do
 	-o "$BEN_workingdir/inp.in" \
 	--cpu-type=TimingSimpleCPU \
 	--mem-type=DRAMsim3 \
-	--dramsim3-ini=$DRAMSIM3_ini_dir/${DRAMSIM3_ini_file}
+	--dramsim3-ini=$DRAMSIM3_ini_dir/${DRAMSIM3_ini_file}.ini
 	
 	#--debug-flags=MemoryAccess \
 	#-i "$SPEC/$BENCH/$BEN_suffix/inp.in" \
