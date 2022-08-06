@@ -25,15 +25,15 @@ do
 		mkdir -p $OUTdir
 	fi
 
-	screen -d -m \
-	$GEM5root/build/X86/gem5.opt \
-	--outdir=$OUTdir \
-	$GEM5root/configs/example/se.py \
-	-c "$BEN_workingdir/$EXEfile" \
-	-o "$BEN_workingdir/inp.in" \
-	--cpu-type=TimingSimpleCPU \
-	--mem-type=DRAMsim3 \
-	--dramsim3-ini=$DRAMSIM3_ini_dir/${DRAMSIM3_ini_file}
+screen -d -m \
+$GEM5root/build/X86/gem5.opt \
+--outdir=$OUTdir \
+$GEM5root/configs/example/se.py \
+-c "$BEN_workingdir/$EXEfile" \
+-o "$BEN_workingdir/inp.in" \
+--cpu-type=TimingSimpleCPU \
+--mem-type=DRAMsim3 \
+--dramsim3-ini=$DRAMSIM3_ini_dir/${DRAMSIM3_ini_file}
 	
 	#--debug-flags=MemoryAccess \
 	#-i "$SPEC/$BENCH/$BEN_suffix/inp.in" \
