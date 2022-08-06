@@ -25,8 +25,7 @@ do
 		mkdir -p $OUTdir
 	fi
 
-screen -d -m \
-$GEM5root/build/X86/gem5.opt \
+screen -d -m $GEM5root/build/X86/gem5.opt \
 --outdir=$OUTdir \
 $GEM5root/configs/example/se.py \
 -c "$BEN_workingdir/$EXEfile" \
