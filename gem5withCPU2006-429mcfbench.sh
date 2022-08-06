@@ -20,7 +20,7 @@ for DRAMSIM3_ini_file in $(ls ${DRAMSIM3_ini_dir}/*.ini)
 do
 	DRAMSIM3_ini_file=$(basename ${DRAMSIM3_ini_file} .ini)
 	
-	OUTdir=$OUT_dir_root/$BENCH_NAME/${DRAMSIM3_ini_file} .ini)-$(date +%FT%H%M%S)
+	OUTdir=$OUT_dir_root/$BENCH_NAME/${DRAMSIM3_ini_file}-$(date +%FT%H%M%S)
 
 	if [ ! -d "$OUTdir" ]; then
 		echo "per-ini ${OUTdir} "
