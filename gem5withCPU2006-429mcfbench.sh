@@ -13,7 +13,7 @@ EXEfile=${BENCH_NAME}_base.amd64-m64-gcc43-nn
 GEM5root=/home/tongxian/Projects/umd-memsys.gem5-modified
 OUT_dir_root=$GEM5root/gem5cpu2006result
 
-DRAMSIM3_ini_dir=long-tREFI-configs/ddr4
+DRAMSIM3_ini_dir=long-tREFI-configs/ddr3
 
 #DRAMSIM3_ini_file=DDR4_8Gb_x8_1866.ini
 for DRAMSIM3_ini_file in $(ls ${DRAMSIM3_ini_dir}/*.ini)
