@@ -31,7 +31,7 @@ do
 	--outdir=$OUTdir \
 	$GEM5root/configs/example/se.py \
 	-c "$BEN_workingdir/$EXEfile" \
-	-o "3 lbm-bench-output 0 0" \
+	-o "6 lbm-bench-output 0 0" \
 	--cpu-type=TimingSimpleCPU \
 	--mem-type=DRAMsim3 \
 	--dramsim3-ini=$DRAMSIM3_ini_dir/${DRAMSIM3_ini_file}.ini
