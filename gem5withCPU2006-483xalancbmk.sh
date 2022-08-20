@@ -33,7 +33,7 @@ do
 	--outdir="$OUTdir" \
 	$GEM5root/configs/example/se.py \
 	-c "$BEN_workingdir/$EXEfile" \
-	-o "-v test.xml xalanc.xsl" \
+	-o "-v ${BEN_workingdir}/test.xml ${BEN_workingdir}/xalanc.xsl" \
 	--cpu-type=TimingSimpleCPU \
 	--mem-type=DRAMsim3 \
 	--dramsim3-ini=$DRAMSIM3_ini_dir/${DRAMSIM3_ini_file}.ini
