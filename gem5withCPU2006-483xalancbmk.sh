@@ -8,7 +8,7 @@ BENCH=483.xalancbmk
 BENCH_NAME=xalancbmk
 BEN_suffix=run/run_base_test_amd64-m64-gcc43-nn.0000
 BEN_workingdir=$SPEC/benchspec/CPU2006/$BENCH/$BEN_suffix
-EXEfile=${BENCH_NAME}_base.amd64-m64-gcc43-nn
+EXEfile=Xalan_base.amd64-m64-gcc43-nn #bench xalancbmk is special, its exefile has another name
 
 GEM5root=/home/tongxian/Projects/umd-memsys.gem5-modified
 OUT_dir_root=$GEM5root/gem5cpu2006result
