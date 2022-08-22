@@ -1,5 +1,14 @@
 #!/usr/bin/bash
 
+# can't complete simulation because:
+#warn: instruction 'movntdq_Mo_Vo' unimplemented 
+# and then:
+#gem5.opt: build/X86/mem/dramsim3.cc:226: bool DRAMsim3::recvTimingReq(PacketPtr): Assertion `wrapper.canAccept(pkt->getAddr(), pkt->isWrite())' failed.
+#Program aborted at tick 15819360000
+#--- BEGIN LIBC BACKTRACE ---
+#/home/tongxian/Projects/umd-memsys.gem5-modified/build/X86/gem5.opt(_Z15print_backtracev+0x15)[0x7378a5]
+#/home/tongxian/Projects/umd-memsys.gem5-modified/build/X86/gem5.opt(_Z12abortHandleri+0x36)[0x7416d6]
+
 cd ../spec2006v1.1/ || exit
 source ./shrc
 cd - || exit
@@ -28,7 +37,7 @@ do
 		mkdir -p "$OUTdir"
 	fi
 
-	screen -d -m \
+	#screen -d -m \
 	$GEM5root/build/X86/gem5.opt \
 	--outdir="$OUTdir" \
 	$GEM5root/configs/example/se.py \
