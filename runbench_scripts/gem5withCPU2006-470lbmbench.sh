@@ -13,10 +13,14 @@ EXEfile=${BENCH_NAME}_base.amd64-m64-gcc43-nn
 GEM5root=/home/tongxian/Projects/umd-memsys.gem5-modified
 OUT_dir_root=$GEM5root/gem5cpu2006result
 
-DRAMSIM3_ini_dir=long-tREFI-configs/ddr3
+DRAMSIM3_ini_dir=${GEM5root}/long-tREFI-configs/new_ref
 #DRAMSIM3_ini_file=DDR4_8Gb_x8_1866.ini
 for DRAMSIM3_ini_file in ${DRAMSIM3_ini_dir}/*.ini
 do
+	if [[ $DRAMSIM3_ini_file =~ "384ms" ||  $DRAMSIM3_ini_file =~ "512ms" || $DRAMSIM3_ini_file =~ "128ms" ]]; then
+		continue
+	fi
+
 	DRAMSIM3_ini_file=$(basename ${DRAMSIM3_ini_file} .ini)
 	OUTdir=$OUT_dir_root/$BENCH_NAME/${DRAMSIM3_ini_file}-$(date +%FT%H%M%S)
 	
