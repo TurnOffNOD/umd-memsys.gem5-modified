@@ -23,7 +23,8 @@ system.mem_ctrl.range = system.mem_ranges[0]
 system.mem_ctrl.port = system.membus.master
 
 process = Process()
-process.cmd = ['tests/test-progs/hello/bin/alpha/linux/hello']
+#process.cmd = ['tests/test-progs/hello/bin/alpha/linux/hello']
+process.cmd = ['tests/test-progs/hello/bin/riscv/linux/hello']
 system.cpu.workload = process
 system.cpu.createThreads()
 
