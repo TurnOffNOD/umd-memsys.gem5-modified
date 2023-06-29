@@ -7,8 +7,8 @@
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
-            "cStandard": "c11",
-            "cppStandard": "gnu++14",
+            "cStandard": "c99",
+            "cppStandard": "c++11",
             "intelliSenseMode": "linux-gcc-x64"
         }
     ],
